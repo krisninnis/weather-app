@@ -1,0 +1,37 @@
+@use "sass:color";
+
+$bg-color: #1e293b;
+$text-color: #f8fafc;
+$highlight-color: #22c55e;
+
+.about-container {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: rgba(30, 41, 59, 0.85);
+  border-radius: 12px;
+  color: $text-color;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+  line-height: 1.6;
+  text-align: left;
+}
+
+.about-title {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: $highlight-color;
+  border-bottom: 2px solid $highlight-color;
+  padding-bottom: 0.5rem;
+  text-align: center;
+}
+
+.about-paragraph {
+  font-size: 1.1rem;
+  margin-bottom: 1.2rem;
+}
+
+.about-highlight {
+  color: $highlight-color;
+  font-weight: bold;
+}

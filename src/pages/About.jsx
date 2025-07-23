@@ -1,37 +1,39 @@
 import React from "react";
+import "../styles/about.scss";
+ // Make sure this file exists!
 
-export default function About() {
+const About = () => {
   return (
-    <main className="about-container">
-      <h1>About WeatherApp</h1>
-      <section>
-        <p>
-          WeatherApp is a simple React application that provides current weather and 5-day forecasts for cities around the world.
-        </p>
-        <p>
-          It uses the OpenWeatherMap API to fetch real-time weather data and displays it in a clean and user-friendly interface.
-        </p>
-      </section>
+    <div className="about-container">
+      <h2>About This App</h2>
+      <p>
+        This weather app allows users to check the current weather and a 5-day
+        forecast for cities around the world.
+      </p>
 
-      <section>
-        <h2>Features</h2>
+      <div className="features">
+        <h3>Features:</h3>
         <ul>
-          <li>Search for cities and view current weather conditions</li>
-          <li>5-day weather forecasts with temperature, humidity, and descriptions</li>
-          <li>Responsive design for use on desktop and mobile devices</li>
-          <li>Accessible and keyboard-friendly UI components</li>
+          <li>Search weather by city</li>
+          <li>5-day forecast</li>
+          <li>Sunrise & sunset times</li>
+          <li>Responsive design</li>
         </ul>
-      </section>
+      </div>
 
-      <section>
-        <h2>About the Developer</h2>
-        <p>
-          This app was developed by Kristian Ninnis as part of a React learning project. It demonstrates React fundamentals, API integration, routing, and styling.
-        </p>
-        <p>
-          Feel free to reach out or contribute ideas to improve the app!
-        </p>
-      </section>
-    </main>
+      <div className="tech-stack">
+        <h3>Built With:</h3>
+        <ul>
+          <li>React</li>
+          <li>SCSS (Sass)</li>
+          <li>OpenWeatherMap API</li>
+          <li>Vite</li>
+        </ul>
+      </div>
+
+      <p className="footer-note">Made with ❤️ by Kristian Ninnis</p>
+    </div>
   );
-}
+};
+
+export default About;

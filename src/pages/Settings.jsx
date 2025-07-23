@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 
 const settingsData = {
@@ -54,12 +55,8 @@ export default function Settings() {
       <h2>Settings</h2>
 
       <div className="setting-group">
-        <label htmlFor="units-select">{settingsData.units.label}</label>
-        <select
-          id="units-select"
-          value={units}
-          onChange={(e) => setUnits(e.target.value)}
-        >
+        <label>{settingsData.units.label}</label>
+        <select value={units} onChange={(e) => setUnits(e.target.value)}>
           {settingsData.units.options.map((opt) => (
             <option key={opt.value} value={opt.value}>
               {opt.label}
@@ -69,12 +66,8 @@ export default function Settings() {
       </div>
 
       <div className="setting-group">
-        <label htmlFor="language-select">{settingsData.language.label}</label>
-        <select
-          id="language-select"
-          value={language}
-          onChange={(e) => setLanguage(e.target.value)}
-        >
+        <label>{settingsData.language.label}</label>
+        <select value={language} onChange={(e) => setLanguage(e.target.value)}>
           {settingsData.language.options.map((opt) => (
             <option key={opt.value} value={opt.value}>
               {opt.label}
@@ -84,12 +77,8 @@ export default function Settings() {
       </div>
 
       <div className="setting-group">
-        <label htmlFor="theme-select">{settingsData.theme.label}</label>
-        <select
-          id="theme-select"
-          value={theme}
-          onChange={(e) => setTheme(e.target.value)}
-        >
+        <label>{settingsData.theme.label}</label>
+        <select value={theme} onChange={(e) => setTheme(e.target.value)}>
           {settingsData.theme.options.map((opt) => (
             <option key={opt.value} value={opt.value}>
               {opt.label}
@@ -99,9 +88,8 @@ export default function Settings() {
       </div>
 
       <div className="setting-group">
-        <label htmlFor="notifications-select">{settingsData.notifications.label}</label>
+        <label>{settingsData.notifications.label}</label>
         <select
-          id="notifications-select"
           value={notifications}
           onChange={(e) => setNotifications(e.target.value)}
         >

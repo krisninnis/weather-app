@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "./styles/weather.scss";
 
 import Home from "./pages/Home";
-import Forecast from "./components/Forecast";
+import Forecast from "./pages/Forecast";
 import Settings from "./pages/Settings";
 import About from "./pages/About";
 
@@ -22,6 +22,7 @@ export default function App() {
         </header>
 
         <div className="main-content">
+          {/* Nav bar on right side, toggled open/close on mobile */}
           <nav className={`side-nav ${menuOpen ? "open" : ""}`}>
             <ul>
               <li>
@@ -47,6 +48,7 @@ export default function App() {
             </ul>
           </nav>
 
+          {/* Page content area */}
           <main className="page-content">
             <Routes>
               <Route path="/" element={<Home />} />

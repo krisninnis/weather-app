@@ -1,4 +1,3 @@
-// src/data/cities.js
 const cities = [
   "London",
   "New York",
