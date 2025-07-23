@@ -28,12 +28,12 @@ export default function Forecast() {
 
   const dropdownRef = useRef(null);
 
-  // Load initial list
+  // Load initial city list
   useEffect(() => {
     setFilteredCities(cities);
   }, []);
 
-  // Fetch forecast when city changes
+  // Fetch forecast when selectedCity changes
   useEffect(() => {
     const fetchForecast = async () => {
       setLoading(true);
@@ -51,9 +51,9 @@ export default function Forecast() {
           item.dt_txt.includes("12:00:00")
         );
 
-        setForecast(dailyForecast.slice(0, 5)); // only next 5 days
-      } catch (err) {
-        setError(err.message);
+        setForecast(dailyForecast.slice(0, 5)); // Next 5 days only
+      } catch {
+        setError("Could not load forecast.");
       } finally {
         setLoading(false);
       }
@@ -117,7 +117,9 @@ export default function Forecast() {
           placeholder="Enter or select a city"
           autoComplete="off"
         />
-        <button type="submit" className="forecast-button">Search</button>
+        <button type="submit" className="forecast-button">
+          Search
+        </button>
 
         {dropdownOpen && filteredCities.length > 0 && (
           <ul className="forecast-dropdown">
@@ -164,9 +166,7 @@ export default function Forecast() {
                   <div className="forecast-temp">
                     {Math.round(day.main.temp)}°C
                   </div>
-                  <div className="forecast-desc">
-                    {day.weather[0].description}
-                  </div>
+                  <div className="forecast-desc">{day.weather[0].description}</div>
                 </div>
               );
             })}

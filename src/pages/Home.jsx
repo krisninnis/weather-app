@@ -38,7 +38,7 @@ export default function Home() {
       if (!response.ok) throw new Error("City not found.");
       const data = await response.json();
       setWeather(data);
-    } catch (err) {
+    } catch {
       setError("Failed to load weather. Please try a valid city name.");
     } finally {
       setLoading(false);
@@ -82,7 +82,6 @@ export default function Home() {
   }, []);
 
   return (
-    // Weather container should have max-width ~400px, padding, and center text (controlled by CSS)
     <main className="weather-container">
       <form onSubmit={handleSubmit} className="city-form" ref={dropdownRef}>
         <input

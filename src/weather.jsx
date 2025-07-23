@@ -46,7 +46,7 @@ export default function Weather() {
         setError("City not found");
         setWeather(null);
       }
-    } catch (err) {
+    } catch {
       setError("Failed to fetch weather data");
       setWeather(null);
     } finally {
