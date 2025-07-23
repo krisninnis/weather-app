@@ -8,7 +8,8 @@ const cities = [
   { name: "Sydney" },
 ];
 
-const API_KEY = "58ab7cf5d82f6902762a0563a01c1056";
+// Use API key from Vite environment variables
+const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
 
 export default function Home() {
   const [cityInput, setCityInput] = useState("");

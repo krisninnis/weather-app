@@ -8,7 +8,8 @@ const cities = [
   { name: "Sydney" },
 ];
 
-const API_KEY = "58ab7cf5d82f6902762a0563a01c1056";
+// Use API key from Vite environment variables
+const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
 
 export default function Forecast() {
   const [cityInput, setCityInput] = useState("");
@@ -39,9 +40,9 @@ export default function Forecast() {
       const data = await response.json();
 
       // Get one forecast per day (around midday)
-      const dailyForecasts = data.list.filter((item) =>
-        item.dt_txt.includes("12:00:00")
-      ).slice(0, 5);
+      const dailyForecasts = data.list
+        .filter((item) => item.dt_txt.includes("12:00:00"))
+        .slice(0, 5);
 
       setForecast(dailyForecasts);
     } catch (err) {
@@ -89,7 +90,12 @@ export default function Forecast() {
 
   return (
     <main className="forecast-container">
-      <form onSubmit={handleSubmit} className="city-form" ref={dropdownRef} autoComplete="off">
+      <form
+        onSubmit={handleSubmit}
+        className="city-form"
+        ref={dropdownRef}
+        autoComplete="off"
+      >
         <label htmlFor="forecast-city-input" className="visually-hidden">
           City
         </label>
@@ -156,11 +162,15 @@ export default function Forecast() {
               className="forecast-card"
               role="listitem"
               tabIndex={0}
-              aria-label={`Forecast for ${new Date(day.dt_txt).toLocaleDateString(undefined, {
+              aria-label={`Forecast for ${new Date(
+                day.dt_txt
+              ).toLocaleDateString(undefined, {
                 weekday: "long",
                 month: "short",
                 day: "numeric",
-              })}: ${day.weather[0].description}, temperature ${day.main.temp.toFixed(1)} degrees Celsius, humidity ${day.main.humidity} percent`}
+              })}: ${day.weather[0].description}, temperature ${day.main.temp.toFixed(
+                1
+              )} degrees Celsius, humidity ${day.main.humidity} percent`}
             >
               <div className="forecast-date">
                 {new Date(day.dt_txt).toLocaleDateString(undefined, {
