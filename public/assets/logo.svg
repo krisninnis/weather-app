@@ -1,0 +1,7 @@
+<svg width="150" height="150" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-label="CloudChirp Logo" role="img">
+  <title>CloudChirp Logo</title>
+  <circle cx="32" cy="32" r="30" fill="#87ceeb"></circle>
+  <ellipse cx="32" cy="38" rx="24" ry="14" fill="#ffffff"></ellipse>
+  <circle cx="22" cy="30" r="12" fill="#ffffff"></circle>
+  <text x="32" y="58" font-family="Segoe UI, Tahoma, Geneva, Verdana, sans-serif" font-size="10" fill="#004080" text-anchor="middle" font-weight="bold">CloudChirp</text>
+</svg>

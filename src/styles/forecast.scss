@@ -1,0 +1,178 @@
+/* Global body/html */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto; /* Allow page vertical scrolling */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #0f172a; /* dark background */
+  color: #f8fafc;
+}
+
+/* App root */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main content area */
+.main-content {
+  flex: 1 1 auto;
+  display: flex;
+  overflow: visible;
+}
+
+/* Page content */
+.page-content {
+  flex-grow: 1;
+  padding: 1rem 1.5rem;
+  overflow-y: visible;
+}
+
+/* Forecast container */
+.forecast-container {
+  max-width: 400px;
+  margin: 2rem auto 3rem auto;
+  padding-bottom: 2rem; /* padding so last cards aren’t flush with bottom */
+  box-sizing: border-box;
+  overflow-y: visible;
+}
+
+/* Form styles */
+.city-form {
+  position: relative;
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.city-input {
+  flex: 1 1 auto;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 2px solid #ccc;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.city-input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 6px #2563eb;
+}
+
+.search-button {
+  padding: 10px 15px;
+  border: none;
+  background-color: #2563eb;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+  background-color: #1e40af;
+}
+
+/* Dropdown styles */
+.dropdown-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  color: black;
+  border: 2px solid #ccc;
+  border-top: none;
+  max-height: 180px;
+  overflow-y: auto;
+  border-radius: 0 0 6px 6px;
+  z-index: 999;
+}
+
+.dropdown-item {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background-color: #e0e7ff;
+}
+
+/* Forecast grid */
+.forecast-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* Forecast card */
+.forecast-card {
+  background: #1e293b;
+  color: #f8fafc;
+  padding: 1rem;
+  border-radius: 1rem;
+  text-align: center;
+  box-shadow: 0 0 8px rgba(0,0,0,0.25);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  cursor: default;
+}
+
+.forecast-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(37, 99, 235, 0.7);
+}
+
+/* Forecast date styling */
+.forecast-date {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+/* Weather description */
+.forecast-desc {
+  font-style: italic;
+  margin-bottom: 0.7rem;
+  color: #cbd5e1;
+  text-transform: capitalize;
+}
+
+/* Temperature and humidity */
+.forecast-temp {
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin-bottom: 0.3rem;
+  color: #f97316; /* orange */
+}
+
+.forecast-humidity {
+  font-weight: 500;
+  color: #60a5fa; /* blue */
+}
+
+/* Loading and error messages */
+.weather-loading,
+.weather-error {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #f87171; /* red-ish for errors */
+}
+
+/* Responsive tweaks */
+@media (max-width: 480px) {
+  .forecast-container {
+    max-width: 100%;
+    padding: 1rem;
+    margin: 1rem auto 2rem auto;
+  }
+
+  .forecast-grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
+}

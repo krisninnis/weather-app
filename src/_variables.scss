@@ -1,0 +1,10 @@
+// src/_variables.scss
+
+// Colors
+$color-bg: #1e293b;
+$color-text: #f8fafc;
+$color-error: #ef4444;
+$color-text-light: lighten($color-bg, 30%);
+
+// Fonts
+$font-primary: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

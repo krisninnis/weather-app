@@ -1,0 +1,126 @@
+// Variables
+$bg-color: #1e293b;
+$text-color: #f8fafc;
+$error-color: #ef4444;
+$primary-color: #3b82f6;
+$primary-color-hover: darken($primary-color, 10%);
+$font-stack: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+// Main container
+.weather-container {
+  max-width: 400px;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: lightgreen;
+  color: $text-color;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  font-family: $font-stack;
+  text-align: center;
+}
+
+// Search input & button
+.weather-search {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+
+  .weather-input {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    background-color: #f1f5f9; // ✅ lighter background
+    color: #111;
+  }
+
+  .weather-button {
+    padding: 8px 12px;
+    background-color: $primary-color;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: $primary-color-hover;
+    }
+  }
+}
+
+// Weather result display
+.weather-result {
+  margin-top: 20px;
+
+  .weather-title {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+  }
+
+  .weather-description {
+    font-size: 1.2rem;
+    font-style: italic;
+    margin-bottom: 10px;
+  }
+
+  .weather-temp,
+  .weather-humidity {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+  }
+}
+
+// Error message
+.weather-error {
+  color: $error-color;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 30px;
+}
+
+// Loading indicator
+.weather-loading {
+  font-size: 1.2rem;
+  text-align: center;
+  margin-top: 30px;
+  color: lighten($bg-color, 30%);
+}
+
+// Dropdown list styles
+.dropdown-list {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  right: 0;
+  max-height: 150px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  z-index: 10;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  .dropdown-item {
+    padding: 8px 12px;
+    cursor: pointer;
+    color: #333;
+    font-size: 1rem;
+
+    &:hover {
+      background-color: #22c55e;
+      color: white;
+    }
+  }
+}
+
+// Highlighted dropdown item
+.dropdown-item.highlighted {
+  background-color: #22c55e;
+  color: white;
+}

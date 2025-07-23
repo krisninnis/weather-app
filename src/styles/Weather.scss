@@ -1,0 +1,711 @@
+@use "sass:color";
+
+$bg-color: #1e293b;
+$text-color: #f8fafc;
+$error-color: #ef4444;
+$font-stack: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+body {
+  margin: 0;
+  font-family: $font-stack;
+  color: $text-color;
+  background-color: $bg-color;
+  background-image: url('/assets/world-map.svg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  height: 100vh;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px;
+  background-color: rgba(30, 41, 59, 0.85);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+
+  .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: $text-color;
+  }
+}
+
+.hamburger {
+  display: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: $text-color;
+
+  @media (max-width: 700px) {
+    display: block;
+  }
+
+  @media (min-width: 768px) {
+    display: none; // hide hamburger on desktop
+  }
+}
+
+.main-content {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  padding: 20px 30px;
+  flex: 1;
+  overflow: hidden;
+}
+
+.weather-container {
+  max-width: 400px;
+  width: 100%;
+  padding: 20px;
+  background-color: rgba(30, 41, 59, 0.85);
+  color: $text-color;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  position: relative;
+}
+
+.city-form {
+  position: relative;
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.city-input {
+  flex-grow: 1;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  font-size: 1rem;
+  outline: none;
+}
+
+.search-button {
+  padding: 10px 16px;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #2563eb;
+  }
+}
+
+.dropdown-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  z-index: 100;
+  list-style: none;
+  padding: 0;
+  margin: 4px 0 0 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.dropdown-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  color: #333;
+  font-size: 1rem;
+
+  &:hover,
+  &.highlighted {
+    background-color: #22c55e;
+    color: white;
+  }
+}
+
+.weather-result {
+  margin-top: 20px;
+
+  .weather-title {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+  }
+
+  .weather-description {
+    font-size: 1.2rem;
+    font-style: italic;
+    margin-bottom: 10px;
+  }
+
+  .weather-temp,
+  .weather-humidity {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+  }
+}
+
+.weather-error {
+  color: $error-color;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.weather-loading {
+  font-size: 1.2rem;
+  text-align: center;
+  margin-top: 30px;
+  color: color.adjust($bg-color, $lightness: 30%);
+}
+
+.side-nav {
+  width: auto;                 // shrink-wrap nav box
+  margin-left: auto;
+  background-color: rgba(255, 255, 255, 0.9);  // <-- light white background with some transparency
+  border: 1px solid #3b82f6;   // blue outline border
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);     // subtle shadow for depth
+  padding: 10px 20px;
+  position: fixed;
+  right: 20px;
+  top: 60px;
+  height: auto;
+  max-width: calc(100% - 40px);
+  box-sizing: border-box;
+  transition: transform 0.3s ease;
+  z-index: 1000;
+
+  @media (max-width: 767px) {
+    position: fixed;
+    top: 60px;
+    right: 0;
+    height: auto;
+    max-width: 100%;
+    transform: translateX(100%);
+  }
+
+  &.open {
+    transform: translateX(0);
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+  }
+
+  li {
+    margin-bottom: 0;
+  }
+
+  a {
+    color: #111827;  // almost black font color before hover
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+
+    &:hover {
+      background-color: #22c55e;
+      color: white;
+    }
+  }
+}
+
+// Responsive styles
+@media (max-width: 700px) {
+  .hamburger {
+    display: block;
+  }
+
+  .main-content {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .weather-container {
+    max-width: 100%;
+  }
+
+  .side-nav {
+    display: none;
+
+    &.open {
+      display: block;
+      background-color: rgba(255, 255, 255, 0.95);  // keep background visible on mobile too
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      padding: 0 10px;
+    }
+
+    a {
+      font-size: 1rem;
+      padding: 8px 10px;
+      word-break: break-word;
+    }
+  }
+}
+
+.page-content {
+  flex: 1;
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+  overflow-y: auto;
+  margin-right: 220px;
+
+  @media (max-width: 767px) {
+    margin-right: 0;
+  }
+}
+.settings-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: rgba(30, 41, 59, 0.85);
+  border-radius: 12px;
+  color: #f8fafc;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+.settings-container h2 {
+  display: inline-block;
+  background-color: rgba(255, 255, 255, 0.85);
+  color: #1e293b;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+}
+
+.setting-group {
+  margin-bottom: 1.5rem;
+
+  label {
+    display: block;
+    margin-bottom: 0.6rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #e2e8f0;
+  }
+
+  select {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    border: 1px solid #94a3b8;
+    font-size: 1rem;
+    background-color: #f8fafc;
+    color: #1e293b;
+    transition: border-color 0.3s ease;
+
+    &:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 5px #3b82f6;
+    }
+  }
+}
+.forecast-container {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: rgba(30, 41, 59, 0.85);
+  border-radius: 10px;
+  color: #f8fafc;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+  text-align: center;
+
+  h2 {
+    margin-bottom: 1rem;
+  }
+
+  .forecast-list {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .forecast-item {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 1rem;
+    width: 120px;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.15);
+
+    p {
+      margin: 0.4rem 0;
+      font-weight: 600;
+    }
+  }
+
+  .error {
+    color: #ef4444;
+    font-weight: bold;
+  }
+}
+.visually-hidden {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.visually-hidden {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.forecast-results {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.forecast-card {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 1rem;
+  width: 160px;
+  text-align: center;
+  color: #f8fafc;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+  transition: transform 0.2s ease;
+}
+
+.forecast-card:hover {
+  transform: scale(1.05);
+}
+
+.forecast-date {
+  font-weight: bold;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+/* Background themes based on weather */
+.bg-clear {
+  background: linear-gradient(135deg, #fceabb, #f8b500);
+}
+.bg-clouds {
+  background: linear-gradient(135deg, #d7d2cc, #304352);
+}
+.bg-rain {
+  background: linear-gradient(135deg, #3a6073, #16222a);
+}
+.bg-thunderstorm {
+  background: linear-gradient(135deg, #141e30, #243b55);
+}
+.bg-snow {
+  background: linear-gradient(135deg, #e6dada, #274046);
+}
+.bg-fog {
+  background: linear-gradient(135deg, #606c88, #3f4c6b);
+}
+.bg-default {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+/* Animations */
+@keyframes fade-slide-in {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fade-slide-in 0.5s ease forwards;
+}
+
+.fade-slide-in {
+  opacity: 0;
+  animation: fade-slide-in 0.5s ease forwards;
+}
+
+/* Unit toggle button */
+.unit-toggle {
+  margin: 1rem 0;
+  background: #3b82f6;
+  color: white;
+  padding: 0.4rem 1rem;
+  border: none;
+  border-radius: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.unit-toggle:hover {
+  background: #2563eb;
+}
+
+/* Forecast card */
+.forecast-card {
+  color: white;
+  padding: 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  text-align: center;
+  margin: 0.5rem;
+}
+
+.forecast-date {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.forecast-icon {
+  width: 64px;
+  height: 64px;
+}
+
+.city-weather-icon {
+  width: 96px;
+  height: 96px;
+  display: block;
+  margin: 0.5rem auto;
+}
+
+/* Responsive grid */
+.forecast-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+/* City info box */
+.city-info {
+  background: rgba(30, 41, 59, 0.9);
+  padding: 1rem;
+  border-radius: 1rem;
+  margin-top: 1rem;
+  color: white;
+  text-align: center;
+}
+/* Dark mode styling */
+body.dark-mode {
+  background: #121212;
+  color: #e0e0e0;
+}
+
+body.dark-mode .forecast-container {
+  background: #1a1a1a !important;
+  color: #ddd;
+}
+
+.darkmode-toggle {
+  background: #444;
+  color: #eee;
+  border: none;
+  padding: 0.4rem 1rem;
+  border-radius: 1rem;
+  cursor: pointer;
+  margin-left: 0.5rem;
+  transition: background 0.3s;
+}
+.darkmode-toggle:hover {
+  background: #666;
+}
+
+/* Background themes with day/night variants */
+.bg-clear-day {
+  background: linear-gradient(135deg, #fceabb, #f8b500);
+}
+.bg-clear-night {
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+}
+.bg-clouds-day {
+  background: linear-gradient(135deg, #d7d2cc, #304352);
+}
+.bg-clouds-night {
+  background: linear-gradient(135deg, #2c3e50, #4ca1af);
+}
+.bg-rain-day {
+  background: linear-gradient(135deg, #3a6073, #16222a);
+}
+.bg-rain-night {
+  background: linear-gradient(135deg, #1c1c1c, #2c3e50);
+}
+.bg-thunderstorm-day {
+  background: linear-gradient(135deg, #141e30, #243b55);
+}
+.bg-thunderstorm-night {
+  background: linear-gradient(135deg, #000000, #434343);
+}
+.bg-snow-day {
+  background: linear-gradient(135deg, #e6dada, #274046);
+}
+.bg-snow-night {
+  background: linear-gradient(135deg, #3a3a3a, #1e1e1e);
+}
+.bg-fog-day {
+  background: linear-gradient(135deg, #606c88, #3f4c6b);
+}
+.bg-fog-night {
+  background: linear-gradient(135deg, #2c3e50, #4ca1af);
+}
+.bg-default-day {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+}
+.bg-default-night {
+  background: linear-gradient(135deg, #000000, #434343);
+}
+
+/* Other styles from before */
+/* ... keep your previous styles for fade-in, cards, grid, etc. */
+
+/* Tooltips on forecast cards */
+.forecast-card {
+  position: relative;
+  cursor: help; /* show help cursor for tooltip */
+}
+
+.forecast-card:hover::after {
+  content: attr(title);
+  white-space: pre-line;
+  position: absolute;
+  bottom: 110%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.75);
+  color: white;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  max-width: 200px;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  z-index: 10;
+}
+
+/* Make sure tooltip is hidden initially */
+.forecast-card::after {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+/* Controls container */
+.top-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.toggles {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.unit-toggle {
+  background: #3b82f6;
+ 
+}
+.about-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1rem 1.5rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #1e293b;
+  background-color: #f8fafc;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(30, 41, 59, 0.1);
+
+  h1, h2 {
+    color: #334155;
+    margin-bottom: 0.75rem;
+  }
+
+  p {
+    margin-bottom: 1rem;
+    line-height: 1.5;
+  }
+
+  ul {
+    list-style: disc inside;
+    margin-bottom: 1rem;
+  }
+}
+.settings-container {
+  max-width: 480px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: #f8fafc; // light background
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(30, 41, 59, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+  /* Darker text color */
+  color: #0f172a;  // darker navy for better contrast
+}
+
+.settings-container h2,
+.settings-container label,
+.settings-container p,
+.settings-container select {
+  color: #0f172a;  // ensure all text inside is dark enough
+}
+
+/* If you want labels specifically darker */
+label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #0f172a;
+}
+
+/* You can also darken the select text */
+select {
+  background-color: white;
+  color: #111;  // very dark text color for select options
+  border: 1.5px solid #cbd5e1;
+
+  &:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 6px #93c5fd;
+  }
+}
