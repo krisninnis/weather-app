@@ -46,7 +46,8 @@ export default function Weather() {
         setError("City not found");
         setWeather(null);
       }
-    } catch (err) {
+    } catch {
+      // Removed unused err param here to fix eslint no-unused-vars
       setError("Failed to fetch weather data");
       setWeather(null);
     } finally {
@@ -81,7 +82,6 @@ export default function Weather() {
     inputRef.current.focus();
   };
 
-  // Keyboard navigation handler
   const onKeyDownHandler = (e) => {
     if (!showDropdown) return;
 
@@ -108,7 +108,6 @@ export default function Weather() {
     }
   };
 
-  // Close dropdown if click outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (

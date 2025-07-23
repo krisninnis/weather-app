@@ -45,7 +45,7 @@ export default function Forecast() {
         .slice(0, 5);
 
       setForecast(dailyForecasts);
-    } catch (err) {
+    } catch {
       setError("Failed to load forecast. Try a valid city name.");
     } finally {
       setLoading(false);

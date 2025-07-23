@@ -9,6 +9,7 @@ export default defineConfig({
     },
   },
   define: {
-    'process.env': {},  // Fix for 'process' is not defined in linting environments
+    // Fix for 'process' is not defined in linting environments
+    'process.env': {},
   },
 });

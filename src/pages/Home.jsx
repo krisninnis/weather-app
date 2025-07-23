@@ -39,7 +39,7 @@ export default function Home() {
       if (!response.ok) throw new Error("City not found.");
       const data = await response.json();
       setWeather(data);
-    } catch (err) {
+    } catch {
       setError("Failed to load weather. Please try a valid city name.");
     } finally {
       setLoading(false);
