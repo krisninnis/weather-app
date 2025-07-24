@@ -25,24 +25,40 @@ export default function Forecast() {
   const [forecast, setForecast] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [unit, setUnit] = useState("metric");
+  const [sunrise, setSunrise] = useState(null);
+  const [sunset, setSunset] = useState(null);
+  const [wind, setWind] = useState(null);
 
   const dropdownRef = useRef(null);
 
-  // Load initial city list
+  const getWeatherClass = (main) => {
+    const condition = main.toLowerCase();
+    if (condition.includes("cloud")) return "cloudy";
+    if (condition.includes("rain")) return "rainy";
+    if (condition.includes("snow")) return "snowy";
+    if (condition.includes("storm") || condition.includes("thunder")) return "stormy";
+    if (condition.includes("fog") || condition.includes("mist") || condition.includes("haze")) return "foggy";
+    if (condition.includes("clear")) return "sunny";
+    return "";
+  };
+
   useEffect(() => {
     setFilteredCities(cities);
   }, []);
 
-  // Fetch forecast when selectedCity changes
   useEffect(() => {
     const fetchForecast = async () => {
       setLoading(true);
       setError("");
       setForecast([]);
+      setSunrise(null);
+      setSunset(null);
+      setWind(null);
 
       try {
         const res = await fetch(
-          `https://api.openweathermap.org/data/2.5/forecast?q=${selectedCity}&appid=${API_KEY}&units=metric`
+          `https://api.openweathermap.org/data/2.5/forecast?q=${selectedCity}&appid=${API_KEY}&units=${unit}`
         );
         if (!res.ok) throw new Error("Could not load forecast.");
 
@@ -51,7 +67,16 @@ export default function Forecast() {
           item.dt_txt.includes("12:00:00")
         );
 
-        setForecast(dailyForecast.slice(0, 5)); // Next 5 days only
+        setForecast(dailyForecast.slice(0, 5));
+
+        // Fetch current weather for sunrise/sunset/wind
+        const currentRes = await fetch(
+          `https://api.openweathermap.org/data/2.5/weather?q=${selectedCity}&appid=${API_KEY}&units=${unit}`
+        );
+        const current = await currentRes.json();
+        setSunrise(new Date(current.sys.sunrise * 1000).toLocaleTimeString());
+        setSunset(new Date(current.sys.sunset * 1000).toLocaleTimeString());
+        setWind(current.wind.speed);
       } catch {
         setError("Could not load forecast.");
       } finally {
@@ -62,7 +87,7 @@ export default function Forecast() {
     if (selectedCity) {
       fetchForecast();
     }
-  }, [selectedCity]);
+  }, [selectedCity, unit]);
 
   const handleInputChange = (e) => {
     const input = e.target.value;
@@ -138,10 +163,23 @@ export default function Forecast() {
 
       <div className="forecast-selected">
         Selected city: <strong>{selectedCity}</strong>
+        <button
+          className="unit-toggle"
+          onClick={() => setUnit(unit === "metric" ? "imperial" : "metric")}
+        >
+          Show in °{unit === "metric" ? "F" : "C"}
+        </button>
       </div>
 
       {loading && <div className="forecast-loading">Loading forecast...</div>}
       {error && <div className="forecast-error">{error}</div>}
+
+      {sunrise && sunset && wind !== null && (
+        <div className="extra-info">
+          🌅 Sunrise: <strong>{sunrise}</strong> | 🌇 Sunset:{" "}
+          <strong>{sunset}</strong> | 💨 Wind: <strong>{wind} {unit === "metric" ? "m/s" : "mph"}</strong>
+        </div>
+      )}
 
       {forecast.length > 0 && (
         <div className="forecast-results">
@@ -150,7 +188,12 @@ export default function Forecast() {
             {forecast.map((day) => {
               const date = new Date(day.dt_txt);
               return (
-                <div className="forecast-day" key={day.dt}>
+                <div
+                  className={`forecast-day ${getWeatherClass(
+                    day.weather[0].main
+                  )}`}
+                  key={day.dt}
+                >
                   <div className="forecast-date">
                     {date.toLocaleDateString("en-GB", {
                       weekday: "short",
@@ -164,7 +207,7 @@ export default function Forecast() {
                     className="forecast-icon"
                   />
                   <div className="forecast-temp">
-                    {Math.round(day.main.temp)}°C
+                    {Math.round(day.main.temp)}°{unit === "metric" ? "C" : "F"}
                   </div>
                   <div className="forecast-desc">{day.weather[0].description}</div>
                 </div>

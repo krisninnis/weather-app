@@ -27,11 +27,9 @@ body {
   padding: 1.5rem;
   background-color: rgba(30, 41, 59, 0.85);
   border-radius: 10px;
-  color: #f8fafc;
+  color: $text-color;
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
   text-align: center;
-
-  /* Scroll if forecast grows too tall */
   max-height: 600px;
   overflow-y: auto;
 
@@ -121,26 +119,195 @@ body {
     }
   }
 
-  .forecast-list {
+  .forecast-details {
+    margin-top: 1rem;
+    font-size: 1rem;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    gap: 1.5rem;
+    flex-direction: column;
+    gap: 0.4rem;
+    color: $text-color;
+    font-weight: 500;
+
+    div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+    }
+  }
+
+  .forecast-toggle {
+    margin: 1rem auto;
+    padding: 8px 16px;
+    background-color: transparent;
+    border: 2px solid $highlight-color;
+    color: $highlight-color;
+    font-size: 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.25s ease, color 0.25s ease;
+
+    &:hover {
+      background-color: $highlight-color;
+      color: $bg-color;
+    }
+  }
+
+  .forecast-results {
+    margin-top: 1.5rem;
+
+    .forecast-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+
+      .forecast-day {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        padding: 1rem;
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.15);
+        text-align: center;
+
+        .forecast-date {
+          font-weight: bold;
+          margin-bottom: 0.5rem;
+        }
+
+        .forecast-icon {
+          width: 60px;
+          height: 60px;
+        }
+
+        .forecast-temp {
+          font-size: 1.2rem;
+          margin: 0.5rem 0;
+        }
+
+        .forecast-desc {
+          font-size: 0.9rem;
+          text-transform: capitalize;
+        }
+      }
+    }
+  }
+
+  .forecast-loading {
+    font-size: 1.1rem;
     margin-top: 1rem;
   }
 
-  .forecast-item {
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    padding: 1rem;
-    width: 120px;
-    box-shadow: 0 0 5px rgba(255, 255, 255, 0.15);
-    text-align: center;
-  }
-
-  .error {
+  .forecast-error {
     color: $error-color;
     font-weight: bold;
     margin-top: 1rem;
+  }
+}
+.forecast-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 1rem;
+
+  .forecast-day {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    padding: 1rem;
+    width: 130px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeInCard 0.6s ease forwards;
+
+    &:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 8px 20px rgba(255, 255, 255, 0.25);
+    }
+
+    &.sunny {
+      background: linear-gradient(to bottom, #facc15, #fde68a);
+      color: #1f2937;
+    }
+
+    &.cloudy {
+      background: linear-gradient(to bottom, #d1d5db, #9ca3af);
+      color: #1f2937;
+    }
+
+    &.rainy {
+      background: linear-gradient(to bottom, #60a5fa, #3b82f6);
+      color: #f8fafc;
+    }
+
+    &.snowy {
+      background: linear-gradient(to bottom, #e0f2fe, #bae6fd);
+      color: #1f2937;
+    }
+
+    &.stormy {
+      background: linear-gradient(to bottom, #6b7280, #1f2937);
+      color: #f8fafc;
+    }
+
+    &.foggy {
+      background: linear-gradient(to bottom, #cbd5e1, #94a3b8);
+      color: #1f2937;
+    }
+
+    .forecast-icon {
+      width: 60px;
+      height: 60px;
+    }
+
+    .forecast-date {
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .forecast-temp {
+      font-size: 1.4rem;
+      font-weight: bold;
+      margin: 0.5rem 0;
+    }
+
+    .forecast-desc {
+      font-size: 0.9rem;
+      text-transform: capitalize;
+    }
+  }
+}
+
+.extra-info {
+  margin-top: 1rem;
+  font-size: 1rem;
+  font-style: italic;
+  color: #f8fafc;
+}
+
+.unit-toggle {
+  margin-left: 1rem;
+  font-size: 0.9rem;
+  background-color: transparent;
+  border: 1px solid #22c55e;
+  border-radius: 5px;
+  color: #22c55e;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #22c55e;
+    color: #1e293b;
+  }
+}
+
+@keyframes fadeInCard {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

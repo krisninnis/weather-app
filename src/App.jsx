@@ -15,7 +15,10 @@ export default function App() {
     <Router>
       <div className="app">
         <header className="header">
-          <div className="logo">WeatherApp</div>
+          <div className="logo">
+            <img src="/assets/logo.svg" alt="CloudChirp Logo" className="logo-image" />
+            <span className="logo-text"></span>
+          </div>
           <div className="hamburger" onClick={toggleMenu}>
             ☰
           </div>

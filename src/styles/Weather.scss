@@ -30,8 +30,33 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 20px 30px;
-  background-color: rgba(30, 41, 59, 0.85);
+  background-color: rgba(164, 191, 236, 0.85);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+
+  .logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  .logo-image {
+    height: 150px;
+    width: auto;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.4));
+    transition: transform 0.3s ease;
+  }
+
+  .logo-text {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: white;
+    letter-spacing: 1px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  }
+
+  &:hover .logo-image {
+    transform: scale(1.05);
+  }
+}
 
   .logo {
     font-size: 1.5rem;
@@ -291,7 +316,7 @@ body {
   max-width: 600px;
   margin: 2rem auto;
   padding: 2rem;
-  background-color: rgba(30, 41, 59, 0.85);
+  background-color: rgba(70, 85, 109, 0.85);
   border-radius: 12px;
   color: #f8fafc;
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
@@ -300,7 +325,7 @@ body {
 .settings-container h2 {
   display: inline-block;
   background-color: rgba(255, 255, 255, 0.85);
-  color: #1e293b;
+  color: #64738c;
   padding: 0.5rem 1rem;
   border-radius: 8px;
   font-weight: bold;
